@@ -6,6 +6,7 @@ namespace Logging
     public class ArtistsContext : DbContext
     {
 
+        private readonly StreamWriter _logWriter = new StreamWriter("logs.txt", true);
         public ArtistsContext() { }
 
         public ArtistsContext(DbContextOptions<ArtistsContext> options) : base(options) { }
@@ -18,12 +19,24 @@ namespace Logging
             {
                 optionsBuilder
                     .UseSqlite("data source=output/Artists.db")
-                    .LogTo(Console.WriteLine);
+                    .LogTo(_logWriter.WriteLine);
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _logWriter.Dispose();
+        }
+
+        public override async ValueTask DisposeAsync()
+        {
+            await base.DisposeAsync();
+            await _logWriter.DisposeAsync();
         }
     }
 
