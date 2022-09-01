@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace Logging
@@ -18,7 +19,7 @@ namespace Logging
             {
                 optionsBuilder
                     .UseSqlite("data source=output/Artists.db")
-                    .LogTo(Console.WriteLine);
+                    .LogTo(message => Debug.WriteLine(message));
             }
         }
 
