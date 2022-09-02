@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Logging
 {
@@ -20,9 +21,10 @@ namespace Logging
                     .UseSqlite("data source=output/Artists.db")
                     .LogTo(
                         Console.WriteLine,
-                        new[] { DbLoggerCategory.Database.Command.Name },
+                        new[] { RelationalEventId.CommandExecuted },
+                        // new[] { DbLoggerCategory.Database.Command.Name },
                         Microsoft.Extensions.Logging.LogLevel.Information
-                    );
+                    ).EnableSensitiveDataLogging();
             }
         }
 
