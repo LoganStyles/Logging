@@ -1,5 +1,4 @@
-﻿
-using Logging;
+﻿using Logging;
 
 class Program
 {
