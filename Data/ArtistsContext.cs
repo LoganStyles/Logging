@@ -20,8 +20,7 @@ namespace Logging
                     .UseSqlite("data source=output/Artists.db")
                     .LogTo(
                         Console.WriteLine,
-                        new[] { DbLoggerCategory.Database.Command.Name },
-                        Microsoft.Extensions.Logging.LogLevel.Information
+                        new[] { DbLoggerCategory.Database.Command.Name }
                     );
             }
         }
